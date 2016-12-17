@@ -39,7 +39,7 @@ class lts_client():
                 s.send('username='+username.decode(sys.stdin.encoding).encode('utf-8'))
                 data = s.recv(1024)
                 if data == '1':
-                    print '\033[1;31;40m昵称已被占用\033[0m'.encode(sys.stdin.encoding)
+                    print '\033[1;31;40m昵称已被占用或昵称为空。\033[0m'.encode(sys.stdin.encoding)
                 else:
                     break
             th = threading.Thread(target=self.recv_msg,args=(s,))

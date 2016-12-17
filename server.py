@@ -84,6 +84,8 @@ class lts_server():
             self.alluser.remove(u)
 
     def user_check(self,name):
+        if name.strip('') == '':
+            return True
         flag = 0
         for _ in self.alluser:
             if _.username == name:
@@ -94,7 +96,11 @@ class lts_server():
         else:
             return True
 
-    def roomid_check(self,ID):
+    def roomid_check(self,ID,name):
+        if ID.strip('') == '':
+            return True
+        if name.strip('') == '':
+            return True
         try:
             intid = int(ID)
         except:
@@ -145,9 +151,12 @@ class lts_server():
             usersock.send_msg(json.dumps(returndict,ensure_ascii=False))
         elif cmd.startswith('create room'):  #create room:1:chat
             roomdetil = cmd.split(':')
-            if self.roomid_check(roomdetil[1]):
-                usersock.send_msg('[+]创建房间失败，房间ID不能重复，且必须为整数。请检查后重新输入。')
-                return 
+            if len(roomdetil) < 3:
+                usersock.send_msg('[+]创建房间ID或名称输入格式错误。 e.g. cmd=create room:ID:name')
+                return
+            if self.roomid_check(roomdetil[1],roomdetil[2]):
+                usersock.send_msg('[+]创建房间失败，房间ID不能重复，且必须为整数,ID和名称不能为空。请检查后重新输入。')
+                return
             r = chatroom.ChartRoom(roomdetil[1],roomdetil[2])
             self.roomlist.append(r)
             r.addnewmember(usersock)
