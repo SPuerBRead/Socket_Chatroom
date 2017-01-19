@@ -1,5 +1,7 @@
 # Socket_Chatroom
-Python多线程socket终端下的聊天室demo。
+应付作业弄个小聊天室-。-只是写写，可能还存在一些小问题
+
+python多线程socket终端下的聊天室demo。
 
 实现了基本的聊天室功能，可以在windows和linux下运行，中文没有问题，使用系统的编码进行输出，不会出现乱码问题。
 
